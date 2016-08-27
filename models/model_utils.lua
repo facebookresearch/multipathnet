@@ -7,8 +7,8 @@ of patent rights can be found in the PATENTS file in the same directory.
 ------------------------------------------------------------------------------]]
 
 local generateGraph = require 'optnet.graphgen'
-local iterm = require 'iterm'
-require 'iterm.dot'
+-- local iterm = require 'iterm'
+-- require 'iterm.dot'
 
 local utils = {}
 
