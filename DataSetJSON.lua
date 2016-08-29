@@ -21,7 +21,7 @@ function DataSetCOCO:create(name, roidbfile, nsamples, offset)
       local train = DataLoader('coco_train2014')
       local val = DataLoader('coco_val2014')
 
-      dataset = ConcatLoader{train, loader.NarrowLoader(val, 5001, val:nImages() - 5000)}
+      dataset = ConcatLoader{train, NarrowLoader(val, 5001, val:nImages() - 5000)}
    elseif name == 'coco_val5k2014' then
       local val = DataLoader('coco_val2014')
       dataset = NarrowLoader(val, 1, 5000)

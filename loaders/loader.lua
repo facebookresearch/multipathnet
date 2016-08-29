@@ -15,6 +15,33 @@ local class = require 'class'
 
 local dataset = class('loaders.dataLoader')
 
+function createAnnotationList(m)
+   local annotation_table = {}
+   local annotations = {}
+   local map = {}
+
+   -- Find annotations for each image
+   for i=1,m.images.id:numel() do
+      map[i] = {}
+   end
+   for i=1,m.annotations.image_id:size(1) do
+      local imageIdx = m.annotations.image_idx[i]
+      table.insert(map[imageIdx], i)
+   end
+
+   for i,anns in ipairs(map) do
+      table.insert(annotation_table, {#annotations + 1, #anns})
+      for _,v in ipairs(anns) do
+         table.insert(annotations, v)
+      end
+   end
+
+   return {
+      table = torch.IntTensor(annotation_table),
+      annotations = torch.IntTensor(annotations),
+   }
+end
+
 function dataset:load(path, image_dir)
    local cocoApi = coco.CocoApi(path)
    for k,v in pairs(cocoApi) do
@@ -26,6 +53,7 @@ function dataset:load(path, image_dir)
       self.categories[i] = cocoApi:loadCats(v)[1].name
    end
    self.image_dir = image_dir
+   self.annotationList = createAnnotationList(self.data)
    return self
 end
 
@@ -48,37 +76,24 @@ function dataset:loadImage(idx)
    local metadata = self:getImage(idx)
    local dir = self.image_dir or self.image_dir[metadata.image_dir]
    local path = paths.concat(dir, metadata.file_name)
-
-   local ok, input
-   for retry=1,10 do
-      ok, input = pcall(function()
-         return image.load(path, 3, 'double')
-      end)
-
-      if ok then return input end
-
-      print("WARNING: loading " .. path .." failed; retrying in " .. retry .. "s")
-      os.execute('sleep ' .. retry) -- linear backoff
-   end
-
-   -- Failed after 10 attempts
-   error(input)
+   return image.load(path, 3, 'double')
 end
 
 -- Gets annotations:
 --  bbox, polygons/rle, category, area, image
 function dataset:getAnnotation(idx)
    local a = self.data.annotations
+   assert(idx <= a.id:numel(), 'no annotation for '..idx)
    local iscrowd = a.iscrowd[idx] == 1
 
    local annotation = {
       bbox = a.bbox[idx],
       image = a.image_idx[idx],
       area = a.area[idx],
-      category = a.category_id[idx],
+      category = a.category_idx[idx],
       iscrowd = iscrowd,
       idx = idx,
-      difficult = a.ignore[idx],
+      difficult = a.ignore and a.ignore[idx] or 0,
    }
 
    return annotation
@@ -118,7 +133,9 @@ end
 
 -- Indices of all labeled annotations for a given image
 function dataset:getImageAnnotations(idx)
-   return self.data.annIdsPerImg[idx]:totable()
+   local offset, len = table.unpack(self.annotationList.table[idx]:totable())
+   if len == 0 then return {} end
+   return self.annotationList.annotations:narrow(1, offset, len):totable()
 end
 
 -- All annotations for a given image
