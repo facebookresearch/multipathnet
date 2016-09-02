@@ -59,6 +59,13 @@ cd coco/PythonAPI
 make
 ```
 
+You might need to install Cython for this:
+
+```
+sudo apt-get install python-pip
+sudo pip install Cython
+```
+
 You will have to add the path to PythonAPI to `PYTHONPATH`. Note that this won't work with anaconda as it ships
 with it's own libraries which conflict with torch.
 
@@ -73,7 +80,7 @@ annotations/
 proposals/
 ```
 
-`models` folder should contain AlexNet and VGG pretrained imagenet files downloaded from here . ResNets can resident in other places specified by `resnet_path` env variable.
+`models` folder should contain AlexNet and VGG pretrained imagenet files downloaded from [here](https://github.com/facebookresearch/multipathnet#training). ResNets can resident in other places specified by `resnet_path` env variable.
 
 `annotations` should contain \*json files downloaded from https://mscoco.org/external. There are \*json annotation files for
 PASCAL VOC, MSCOCO, ImageNet and other datasets.
