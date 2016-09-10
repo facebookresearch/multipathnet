@@ -69,6 +69,9 @@ sudo pip install Cython
 You will have to add the path to PythonAPI to `PYTHONPATH`. Note that this won't work with anaconda as it ships
 with it's own libraries which conflict with torch.
 
+### EC2 installation script
+
+Thanks to @DeegC there is [scripts/ec2-install.sh](scripts/ec2-install.sh) script for quick EC2 setup.
 
 ## Data preparation
 
