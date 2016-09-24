@@ -29,7 +29,6 @@ local classifier = data.top:unpack()
 
 local model = nn.Sequential()
 
-for i,v in ipairs{11,10,9,8,1} do classifier:remove(v) end
 for k,v in ipairs(classifier:findModules'nn.Dropout') do v.inplace = true end
 
 local skip_features = nn.Sequential()
