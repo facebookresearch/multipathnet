@@ -5,7 +5,7 @@ export test_best_proposals_number=2000
 
 th run_test.lua
 
-# model=data/models/caffenet_fast_rcnn_iter_40000.t7
+# model=../data/models/vgg16_fast_rcnn_iter_40000.t7
 # Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.345
 # Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.668
 # Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.320
@@ -20,7 +20,7 @@ th run_test.lua
 # Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.518
 
 
-# model=../data/models/vgg16_fast_rcnn_iter_40000.t7
+# model=data/models/caffenet_fast_rcnn_iter_40000.t7
 # Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.264
 # Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.559
 # Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.217
