@@ -250,6 +250,22 @@ function utils.conv345Combine(isNormalized, useConv3, useConv4, initCopyConv5)
   return pooling_join
 end
 
+-- workaround for bytecode incompat functions
+function utils.safe_unpack(self)
+   if self.unpack and self.model then
+      return self:unpack()
+   else
+      local model = self.model
+      for k,v in ipairs(model:listModules()) do
+         if v.weight and not v.gradWeight then
+            v.gradWeight = v.weight:clone()
+            v.gradBias = v.bias:clone()
+         end
+      end
+      return model
+   end
+end
+
 function utils.load(path)
   local data = torch.load(path)
   return data.unpack and data:unpack() or data

@@ -24,8 +24,8 @@ print(model_opt)
 local N = 4
 
 local data = torch.load'data/models/imagenet_pretrained_vgg.t7'
-local features = data.features:unpack()
-local classifier = data.top:unpack()
+local features = utils.safe_unpack(data.features)
+local classifier = utils.safe_unpack(data.top)
 
 local model = nn.Sequential()
 
