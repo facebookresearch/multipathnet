@@ -12,13 +12,13 @@ require 'fbcoco'
 local utils = paths.dofile'model_utils.lua'
 
 local data = torch.load'data/models/imagenet_pretrained_vgg.t7'
-local features = data.features:unpack()
-local classifier = data.top:unpack()
+local features = utils.safe_unpack(data.features)
+local top = utils.safe_unpack(data.top)
 
 -- kill first 4 conv layers; the convolutions are at {1,3,6,8,11,13}
 utils.disableFeatureBackprop(features, 10)
 
-for k,v in ipairs(classifier:findModules'nn.Dropout') do v.inplace = true end
+for k,v in ipairs(top:findModules'nn.Dropout') do v.inplace = true end
 
 local model = nn.Sequential()
   :add(nn.ParallelTable()
@@ -27,7 +27,7 @@ local model = nn.Sequential()
   )
   :add(inn.ROIPooling(7,7,1/16))
   :add(nn.View(-1):setNumInputDims(3))
-  :add(classifier)
+  :add(top)
   :add(utils.classAndBBoxLinear(4096))
 
 model:cuda()
