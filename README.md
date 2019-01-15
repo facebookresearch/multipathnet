@@ -124,17 +124,17 @@ data
 Download selective_search proposals for VOC2007:
 
 ```bash
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/train.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/val.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/trainval.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/test.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/train.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/val.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/trainval.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/test.t7
 ```
 
 Download sharpmask proposals for COCO:
 
 ```bash
-wget https://s3.amazonaws.com/multipathnet/proposals/coco/sharpmask/train.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/coco/sharpmask/val.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/coco/sharpmask/train.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/coco/sharpmask/val.t7
 ```
 
 As for the images themselves, provide paths to VOCDevkit and COCO in [config.lua](config.lua)
@@ -155,7 +155,7 @@ to classify them, then do non-maximum suppression and draw the found objects.
   ```bash
   cd data/models
   # download SharpMask based on ResNet-50
-  wget https://s3.amazonaws.com/deepmask/models/sharpmask/model.t7 -O sharpmask.t7
+  wget https://dl.fbaipublicfiles.com/deepmask/models/sharpmask/model.t7 -O sharpmask.t7
   ```
 
 3. Download recognition network:
@@ -163,7 +163,7 @@ to classify them, then do non-maximum suppression and draw the found objects.
   ```bash
   cd data/models
   # download ResNet-18-based model trained on COCO with integral loss
-  wget https://s3.amazonaws.com/multipathnet/models/resnet18_integral_coco.t7
+  wget https://dl.fbaipublicfiles.com/multipathnet/models/resnet18_integral_coco.t7
   ```
 
 4. Make sure you have COCO validation .json files in `data/annotations/instances_val2014.json`
@@ -185,8 +185,8 @@ See file [demo.lua](demo.lua) for details.
 The repository supports training Fast-RCNN and MultiPath networks with data and model multi-GPU paralellism.
 Supported base models are the following:
 
-* AlexNet trained in [caffe](https://github.com/bvlc/caffe) by Ross Girshick, [imagenet_pretrained_alexnet.t7](https://s3.amazonaws.com/multipathnet/models/imagenet_pretrained_alexnet.t7)
-* VGG trained in [caffe](https://github.com/bvlc/caffe) by Ross Girshick, [imagenet_pretrained_vgg.t7](https://s3.amazonaws.com/multipathnet/models/imagenet_pretrained_vgg.t7)
+* AlexNet trained in [caffe](https://github.com/bvlc/caffe) by Ross Girshick, [imagenet_pretrained_alexnet.t7](https://dl.fbaipublicfiles.com/multipathnet/models/imagenet_pretrained_alexnet.t7)
+* VGG trained in [caffe](https://github.com/bvlc/caffe) by Ross Girshick, [imagenet_pretrained_vgg.t7](https://dl.fbaipublicfiles.com/multipathnet/models/imagenet_pretrained_vgg.t7)
 * ResNets trained in torch with [fb.resnet.torch](https://github.com/facebook/fb.resnet.torch) by Sam Gross
 * inception-v3 trained in [tensorflow](https://github.com/tensorflow/tensorflow) by Google
 * Network-In-Network trained in torch with [imagenet-multiGPU.torch](https://github.com/soumith/imagenet-multiGPU.torch) by Sergey Zagoruyko
@@ -212,7 +212,7 @@ train_nGPU=4 test_nGPU=1 ./scripts/train_multipathnet_coco.sh
 
 Here is a graph visualization of the network (click to enlarge):
 
-<a href="https://s3.amazonaws.com/multipathnet/extra/multipathnet.pdf">
+<a href="https://dl.fbaipublicfiles.com/multipathnet/extra/multipathnet.pdf">
 <img width="1109" alt="multipathnet" src="https://cloud.githubusercontent.com/assets/4953728/17974712/70baf428-6ae7-11e6-9881-e0dea8ab9c18.png">
 </a>
 
@@ -227,8 +227,8 @@ train_nGPU=4 test_nGPU=1 model=resnet resnet_path=./data/models/resnet/resnet-18
 ### PASCAL VOC
 
 We provide original models from Fast-RCNN paper converted to torch format here:
-* [caffenet_fast_rcnn_iter_40000.t7](https://s3.amazonaws.com/multipathnet/models/caffenet_fast_rcnn_iter_40000.t7)
-* [vgg16_fast_rcnn_iter_40000.t7](https://s3.amazonaws.com/multipathnet/models/vgg16_fast_rcnn_iter_40000.t7)
+* [caffenet_fast_rcnn_iter_40000.t7](https://dl.fbaipublicfiles.com/multipathnet/models/caffenet_fast_rcnn_iter_40000.t7)
+* [vgg16_fast_rcnn_iter_40000.t7](https://dl.fbaipublicfiles.com/multipathnet/models/vgg16_fast_rcnn_iter_40000.t7)
 
 To evaluate these models run:
 
@@ -239,7 +239,7 @@ model=data/models/vgg_fast_rcnn_iter_40000.t7 ./scripts/eval_fastrcnn_voc2007.sh
 
 ### COCO
 
-Evaluate fast ResNet-18-based network trained with integral loss on COCO val5k split ([resnet18_integral_coco.t7](https://s3.amazonaws.com/multipathnet/models/resnet18_integral_coco.t7) 89MB):
+Evaluate fast ResNet-18-based network trained with integral loss on COCO val5k split ([resnet18_integral_coco.t7](https://dl.fbaipublicfiles.com/multipathnet/models/resnet18_integral_coco.t7) 89MB):
 
 ```bash
 test_nGPU=4 test_nsamples=5000 ./scripts/eval_coco.sh

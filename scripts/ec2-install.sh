@@ -67,22 +67,22 @@ unzip -j /tmp/instances_train-val2014.zip
 
 mkdir -p $MPROOT/data/proposals/VOC2007/selective_search
 cd $MPROOT/data/proposals/VOC2007/selective_search
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/train.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/val.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/trainval.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/VOC2007/selective_search/test.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/train.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/val.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/trainval.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/VOC2007/selective_search/test.t7
 
 mkdir -p $MPROOT/data/proposals/coco/sharpmask
 cd $MPROOT/data/proposals/coco/sharpmask
-wget https://s3.amazonaws.com/multipathnet/proposals/coco/sharpmask/train.t7
-wget https://s3.amazonaws.com/multipathnet/proposals/coco/sharpmask/val.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/coco/sharpmask/train.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/proposals/coco/sharpmask/val.t7
 
 mkdir -p $MPROOT/data/models
 cd $MPROOT/data/models
-wget https://s3.amazonaws.com/multipathnet/models/imagenet_pretrained_alexnet.t7
-wget https://s3.amazonaws.com/multipathnet/models/imagenet_pretrained_vgg.t7
-wget https://s3.amazonaws.com/multipathnet/models/vgg16_fast_rcnn_iter_40000.t7
-wget https://s3.amazonaws.com/multipathnet/models/caffenet_fast_rcnn_iter_40000.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/models/imagenet_pretrained_alexnet.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/models/imagenet_pretrained_vgg.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/models/vgg16_fast_rcnn_iter_40000.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/models/caffenet_fast_rcnn_iter_40000.t7
 
 if [ ! -f ~/multipathnet/config.lua.backup ]; then
   cp ~/multipathnet/config.lua ~/multipathnet/config.lua.backup
@@ -109,8 +109,8 @@ git clone https://github.com/facebookresearch/deepmask.git
 
 cd $MPROOT/data/models
 # download SharpMask based on ResNet-50
-wget https://s3.amazonaws.com/deepmask/models/sharpmask/model.t7 -O sharpmask.t7
-wget https://s3.amazonaws.com/multipathnet/models/resnet18_integral_coco.t7
+wget https://dl.fbaipublicfiles.com/deepmask/models/sharpmask/model.t7 -O sharpmask.t7
+wget https://dl.fbaipublicfiles.com/multipathnet/models/resnet18_integral_coco.t7
 
 echo
 echo 'Add the following to your .bashrc:
